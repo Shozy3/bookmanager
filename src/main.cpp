@@ -5,8 +5,8 @@
  * This file contains the main function that initializes the Qt application
  * and starts the GUI. It serves as the entry point for the entire application.
  * 
- * @author Your Name
- * @date 2024
+ * @author Shahzaib Ahmed
+ * @date October 12, 2025
  */
 
 #include <QApplication>
@@ -104,13 +104,9 @@ int main(int argc, char *argv[]) {
     qDebug() << "Application Version:" << app.applicationVersion();
     qDebug() << "Qt Version:" << QT_VERSION_STR;
     
-    // TODO: In next commit, we'll create and show the MainWindow
-    // For now, we'll just show a simple message
     qDebug() << "PRMS initialized successfully!";
     qDebug() << "Main window will be implemented in the next commit.";
     
-    // For now, just run the event loop briefly to test Qt setup
-    // In the next commit, we'll replace this with actual window creation
     QTimer::singleShot(1000, &app, &QApplication::quit);
     
     // Start the application event loop
