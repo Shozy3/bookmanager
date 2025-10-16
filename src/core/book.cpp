@@ -21,7 +21,7 @@
  * This is used when you need a Book object but don't have
  * the data yet (like when loading from a database).
  */
-Book:Book()
+Book::Book()
     : m_id(0) // Initialize ID to 0 (not set)
     , m_title("") // Initialize title to empty string
     , m_author("") // Initialize author to empty string
@@ -30,6 +30,15 @@ Book:Book()
     , m_currentPage(0) // Initialize current page to 0
     , m_startDate(std::nullopt) // Initialize start date to "not set"
     , m_completionDate(std::nullopt) // Initialize completion date to "not set"
+    , m_genre("") // Initialize genre to empty
+    , m_publisher("") // Initialize publisher to empty
+    , m_yearPublished(0) // Initialize year to 0 (not set)
+    , m_notes("") // Initialize notes to empty
+    , m_review("") // Initialize review to empty
+    , m_rating(0) // Initialize rating to 0 (unrated)
+    , m_coverPath("") // Initialize cover path to empty
+    , m_dateAdded(std::chrono::system_clock::now()) // Initialize to current time
+    , m_status(0) // Initialize to ToRead status
 {
     // Constructor body is empty because we initialized everything above
     // This is called "member initializer list"
@@ -53,6 +62,15 @@ Book::Book(const std::string& title, const std::string& author,
     , m_currentPage(0) // Start at page 0 (not started yet)
     , m_startDate(std::nullopt) // Initialize start date to "not set"
     , m_completionDate(std::nullopt) // Initialize completion date to "not set"
+    , m_genre("") // Initialize genre to empty
+    , m_publisher("") // Initialize publisher to empty
+    , m_yearPublished(0) // Initialize year to 0 (not set)
+    , m_notes("") // Initialize notes to empty
+    , m_review("") // Initialize review to empty
+    , m_rating(0) // Initialize rating to 0 (unrated)
+    , m_coverPath("") // Initialize cover path to empty
+    , m_dateAdded(std::chrono::system_clock::now()) // Initialize to current time
+    , m_status(0) // Initialize to ToRead status
 {
     // Validate the input data
 
@@ -74,6 +92,14 @@ Book::Book(const std::string& title, const std::string& author,
 }
 
 // ==== GETTER METHODS ====
+
+/**
+ * @brief Get the unique ID of the book
+ * @return The book's ID (0 if not set)
+ */
+int Book::getId() const {
+    return m_id;
+}
 
 /**
  * @brief Get the title of the book
@@ -238,9 +264,17 @@ void Book::setCurrentPage(int currentPage) {
     }
 
     // Automatically set completion date if we've reached the end
-    if (currentPage == m_pageCount && > 0 && !m_completionDate.has_value()) {
+    if (currentPage == m_pageCount && m_pageCount > 0 && !m_completionDate.has_value()) {
         m_completionDate = std::chrono::system_clock::now();
     }
+}
+
+/**
+ * @brief Set the date when the reading was started
+ * @param startDate The new start date
+ */
+void Book::setStartDate(const std::chrono::system_clock::time_point& startDate) {
+    m_startDate = startDate;
 }
 
 /**
@@ -251,6 +285,145 @@ void Book::setCompletionDate(const std::chrono::system_clock::time_point& comple
     m_completionDate = completionDate;
 }
 
+
+// ==== ADDITIONAL GETTERS ====
+
+/**
+ * @brief Get the genre of the book
+ */
+const std::string& Book::getGenre() const {
+    return m_genre;
+}
+
+/**
+ * @brief Get the publisher of the book
+ */
+const std::string& Book::getPublisher() const {
+    return m_publisher;
+}
+
+/**
+ * @brief Get the year published
+ */
+int Book::getYearPublished() const {
+    return m_yearPublished;
+}
+
+/**
+ * @brief Get personal notes
+ */
+const std::string& Book::getNotes() const {
+    return m_notes;
+}
+
+/**
+ * @brief Get personal review
+ */
+const std::string& Book::getReview() const {
+    return m_review;
+}
+
+/**
+ * @brief Get the rating
+ */
+int Book::getRating() const {
+    return m_rating;
+}
+
+/**
+ * @brief Get the cover image path
+ */
+const std::string& Book::getCoverPath() const {
+    return m_coverPath;
+}
+
+/**
+ * @brief Get the date when book was added
+ */
+const std::chrono::system_clock::time_point& Book::getDateAdded() const {
+    return m_dateAdded;
+}
+
+/**
+ * @brief Get the reading status
+ */
+int Book::getStatus() const {
+    return m_status;
+}
+
+// ==== ADDITIONAL SETTERS ====
+
+/**
+ * @brief Set the genre
+ */
+void Book::setGenre(const std::string& genre) {
+    m_genre = genre;
+}
+
+/**
+ * @brief Set the publisher
+ */
+void Book::setPublisher(const std::string& publisher) {
+    m_publisher = publisher;
+}
+
+/**
+ * @brief Set the year published
+ */
+void Book::setYearPublished(int year) {
+    if (year < 0 || year > 9999) {
+        throw std::invalid_argument("Invalid year");
+    }
+    m_yearPublished = year;
+}
+
+/**
+ * @brief Set personal notes
+ */
+void Book::setNotes(const std::string& notes) {
+    m_notes = notes;
+}
+
+/**
+ * @brief Set personal review
+ */
+void Book::setReview(const std::string& review) {
+    m_review = review;
+}
+
+/**
+ * @brief Set the rating
+ */
+void Book::setRating(int rating) {
+    if (rating < 0 || rating > 5) {
+        throw std::invalid_argument("Rating must be between 0 and 5");
+    }
+    m_rating = rating;
+}
+
+/**
+ * @brief Set the cover image path
+ */
+void Book::setCoverPath(const std::string& path) {
+    m_coverPath = path;
+}
+
+/**
+ * @brief Set the date added
+ */
+void Book::setDateAdded(const std::chrono::system_clock::time_point& date) {
+    m_dateAdded = date;
+}
+
+/**
+ * @brief Set the reading status
+ */
+void Book::setStatus(int status) {
+    if (status < 0 || status > 4) {
+        throw std::invalid_argument("Invalid status code");
+    }
+    m_status = status;
+}
 
 // ==== UTILITY METHODS ====
 

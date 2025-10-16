@@ -52,10 +52,25 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Source files (we'll add more as we create them)
 set(SOURCES
     src/main.cpp
+    src/core/book.cpp
+    src/core/database.cpp
+    src/core/reading_session.cpp
+    src/ui/theme.cpp
+    src/ui/mainwindow.cpp
+    src/ui/dialogs/book_dialog.cpp
 )
 
 # Header files (we'll add more as we create them)
 set(HEADERS
+    include/core/book.h
+    include/core/database.h
+    include/core/reading_session.h
+    include/core/book_status.h
+    include/ui/theme.h
+    include/ui/mainwindow.h
+    include/ui/dialogs/book_dialog.h
+    include/utils/date_utils.h
+    include/utils/string_utils.h
 )
 
 # Create the executable
