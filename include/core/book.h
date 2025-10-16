@@ -48,9 +48,15 @@
          * the basic information available.
         */
         Book (const std::string& title, const std::string& author,
-              const std::string& isbn ==, int pageCount = 0):
+              const std::string& isbn = "", int pageCount = 0);
         
         // ==== GETTERS METHODS ====
+
+        /**
+         * @brief Get the unique ID of the book
+         * @return The book's ID (0 if not set)
+         */
+        int getId() const;
 
         /**
          * @brief Get the title of the book
@@ -182,17 +188,140 @@
          */
         void resetProgress();
 
+        // ==== ADDITIONAL GETTERS ====
+
+        /**
+         * @brief Get the genre of the book
+         * @return The book's genre
+         */
+        const std::string& getGenre() const;
+
+        /**
+         * @brief Get the publisher of the book
+         * @return The book's publisher
+         */
+        const std::string& getPublisher() const;
+
+        /**
+         * @brief Get the year published
+         * @return Year of publication
+         */
+        int getYearPublished() const;
+
+        /**
+         * @brief Get personal notes
+         * @return The notes
+         */
+        const std::string& getNotes() const;
+
+        /**
+         * @brief Get personal review
+         * @return The review
+         */
+        const std::string& getReview() const;
+
+        /**
+         * @brief Get the rating
+         * @return Rating (0-5 stars, 0 = unrated)
+         */
+        int getRating() const;
+
+        /**
+         * @brief Get the cover image path
+         * @return Path to cover image
+         */
+        const std::string& getCoverPath() const;
+
+        /**
+         * @brief Get the date when book was added
+         * @return Date added to library
+         */
+        const std::chrono::system_clock::time_point& getDateAdded() const;
+
+        /**
+         * @brief Get the reading status
+         * @return Status (0=ToRead, 1=Reading, 2=Completed, 3=DNF, 4=Wishlist)
+         */
+        int getStatus() const;
+
+        // ==== ADDITIONAL SETTERS ====
+
+        /**
+         * @brief Set the genre
+         * @param genre The new genre
+         */
+        void setGenre(const std::string& genre);
+
+        /**
+         * @brief Set the publisher
+         * @param publisher The new publisher
+         */
+        void setPublisher(const std::string& publisher);
+
+        /**
+         * @brief Set the year published
+         * @param year Year of publication
+         */
+        void setYearPublished(int year);
+
+        /**
+         * @brief Set personal notes
+         * @param notes The notes
+         */
+        void setNotes(const std::string& notes);
+
+        /**
+         * @brief Set personal review
+         * @param review The review
+         */
+        void setReview(const std::string& review);
+
+        /**
+         * @brief Set the rating
+         * @param rating Rating (0-5 stars)
+         */
+        void setRating(int rating);
+
+        /**
+         * @brief Set the cover image path
+         * @param path Path to cover image
+         */
+        void setCoverPath(const std::string& path);
+
+        /**
+         * @brief Set the date added
+         * @param date Date when added
+         */
+        void setDateAdded(const std::chrono::system_clock::time_point& date);
+
+        /**
+         * @brief Set the reading status
+         * @param status Status code
+         */
+        void setStatus(int status);
+
     private:
         // ==== MEMBER VARIABLES ====
 
         int m_id; // unique identifier for the book
         std::string m_title; // title of the book
         std::string m_author; // author of the book
-        std:: string m_isbn; // ISBN number of the book
+        std::string m_isbn; // ISBN number of the book
         int m_pageCount; // total number of pages in the book
         int m_currentPage; // current page that the user is on
         std::optional<std::chrono::system_clock::time_point> m_startDate; // date when the reading was started
         std::optional<std::chrono::system_clock::time_point> m_completionDate; // date when the reading was completed
+        
+        // Additional fields for enhanced functionality
+        std::string m_genre; // genre/category of the book
+        std::string m_publisher; // publisher name
+        int m_yearPublished; // year of publication
+        std::string m_notes; // personal notes about the book
+        std::string m_review; // personal review
+        int m_rating; // rating (0-5 stars, 0 = unrated)
+        std::string m_coverPath; // path to cover image file
+        std::chrono::system_clock::time_point m_dateAdded; // when book was added to library
+        int m_status; // reading status (0=ToRead, 1=Reading, 2=Completed, 3=DNF, 4=Wishlist)
 };
 
 #endif // BOOK_H
